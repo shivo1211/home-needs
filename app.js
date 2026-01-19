@@ -37,13 +37,35 @@ function initNavigation() {
     const navbar = document.querySelector('.navbar');
 
     // Scroll effect for navbar
+    let lastScrollTop = 0;
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        // Toggle 'scrolled' class for background style
+        if (scrollTop > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+
+        // Detect scroll direction for shrinking header on mobile
+        // Only apply if scrolled down significantly (> 100px)
+        if (scrollTop > 100) {
+            if (scrollTop > lastScrollTop) {
+                // Scrolling DOWN - Hide second row
+                document.body.classList.add('header-compact');
+            } else {
+                // Scrolling UP - Show full header
+                document.body.classList.remove('header-compact');
+            }
+        } else {
+            // At top - Show full header
+            document.body.classList.remove('header-compact');
+        }
+
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
 
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
