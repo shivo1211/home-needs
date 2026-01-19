@@ -17,6 +17,7 @@ let currentProducts = PRODUCTS;
 document.addEventListener('DOMContentLoaded', () => {
     loadCartFromStorage();
     initNavigation();
+    initTheme(); // Initialize Theme
     initCartSidebar();
 
     // Initialize page-specific features
@@ -88,6 +89,46 @@ function initNavigation() {
             navLinks.classList.toggle('open');
         });
     }
+}
+
+// ========================================
+// THEME TOGGLE
+// ========================================
+function initTheme() {
+    const themeBtn = document.querySelector('.theme-toggle');
+    if (!themeBtn) return;
+
+    const themeIcon = themeBtn.querySelector('.theme-icon');
+
+    // Check saved preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Apply theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️'; // Sun icon for light mode switch
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeIcon.textContent = '🌙'; // Moon icon for dark mode switch
+    }
+
+    // Toggle event
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        const isDark = document.body.classList.contains('dark-mode');
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+
+        // Save preference
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+        // Animation effect
+        themeBtn.style.transform = 'scale(0.8) rotate(360deg)';
+        setTimeout(() => {
+            themeBtn.style.transform = '';
+        }, 300);
+    });
 }
 
 // ========================================
