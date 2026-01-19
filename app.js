@@ -4,7 +4,7 @@
  */
 
 // WhatsApp number for orders
-const WHATSAPP_NUMBER = "919892030198";
+const WHATSAPP_NUMBER = "917304920465";
 
 // Cart state
 let cart = [];
