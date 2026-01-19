@@ -1253,6 +1253,33 @@ h3 {
 }
 
 /* ========================================
+   Category Filters (Enhanced)
+======================================== */
+.category-filters {
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    padding-bottom: var(--space-xs);
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+}
+
+.category-filters::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+/* Desktop: Show all on hover */
+@media (min-width: 769px) {
+    .category-filters:hover {
+        flex-wrap: wrap;
+        overflow-x: visible;
+    }
+}
+
+/* ========================================
    Footer
 ======================================== */
 .footer {
@@ -1329,6 +1356,23 @@ h3 {
     box-shadow: var(--shadow-lg), var(--shadow-glow);
     z-index: 1000;
     transition: var(--transition-fast);
+}
+
+.floating-cart .scroll-top-icon {
+    display: none;
+}
+
+.floating-cart.scroll-top {
+    background: var(--surface-3);
+    /* Distinct utility color */
+}
+
+.floating-cart.scroll-top .cart-content {
+    display: none;
+}
+
+.floating-cart.scroll-top .scroll-top-icon {
+    display: block;
 }
 
 .floating-cart:hover {
@@ -1411,6 +1455,27 @@ h3 {
     body.header-compact .category-section {
         top: 52px;
         /* Precise height of compact header */
+    }
+
+    /* Mobile Category Behavior: Expand on Scroll Up, Collapse on Scroll Down */
+    .category-filters {
+        flex-wrap: wrap;
+        overflow-x: visible;
+        max-height: 50vh;
+        overflow-y: auto;
+        justify-content: flex-start;
+        /* Consistent alignment */
+        padding-bottom: var(--space-sm);
+        transition: max-height 0.3s ease;
+    }
+
+    body.header-compact .category-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-height: 60px;
+        /* Force single row height */
+        padding-bottom: var(--space-xs);
     }
 
     .nav-links::-webkit-scrollbar {

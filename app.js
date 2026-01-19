@@ -64,6 +64,18 @@ function initNavigation() {
             document.body.classList.remove('header-compact');
         }
 
+        // Floating Cart - Scroll to Top Logic
+        const floatingCart = document.querySelector('.floating-cart');
+        if (floatingCart) {
+            // "long back to top" -> scrolled down deep (> 800px) AND scrolling up
+            if (scrollTop > 800 && scrollTop < lastScrollTop) {
+                floatingCart.classList.add('scroll-top');
+            } else if (scrollTop <= 800 || scrollTop > lastScrollTop) {
+                // Near top OR scrolling down -> Show Cart
+                floatingCart.classList.remove('scroll-top');
+            }
+        }
+
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
 
@@ -304,9 +316,19 @@ function updateActiveCategoryPill(category) {
         }
     });
 
-    // Scroll pill into view
+    // Scroll pill into view (Safer manual scroll to valid vertical jumps)
     if (targetPill) {
-        targetPill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        const containerWidth = filtersContainer.offsetWidth;
+        const pillLeft = targetPill.offsetLeft;
+        const pillWidth = targetPill.offsetWidth;
+
+        // Calculate center position
+        const targetScroll = pillLeft - (containerWidth / 2) + (pillWidth / 2);
+
+        filtersContainer.scrollTo({
+            left: targetScroll,
+            behavior: 'smooth'
+        });
     }
 }
 
@@ -404,7 +426,20 @@ function initCartSidebar() {
     };
 
     if (cartBtn) cartBtn.addEventListener('click', openCart);
-    if (floatingCart) floatingCart.addEventListener('click', openCart);
+    if (floatingCart) {
+        floatingCart.addEventListener('click', (e) => {
+            // If in Scroll-Top mode, scroll to top
+            if (floatingCart.classList.contains('scroll-top')) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Otherwise open cart
+                openCart();
+            }
+        });
+    }
     if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
     if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
 
