@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Home Needs - Reach out via WhatsApp for orders, inquiries, and support.">
+    <title>Contact Us - Home Needs</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-page="contact">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🏠</span>
+                <span class="text-gradient">Home Needs</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Shop</a>
+                <a href="special-offers.html" class="nav-link">Special Offers</a>
+                <a href="contact-us.html" class="nav-link active">Contact Us</a>
+
+                <button class="cart-btn" type="button">
+                    <span class="cart-icon">🛒</span>
+                    <span>Cart</span>
+                    <span class="cart-count" style="display: none;">0</span>
+                </button>
+            </div>
+
+            <button class="mobile-menu-btn" type="button" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                <h1>Get in <span class="text-gradient">Touch</span></h1>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: var(--space-md) auto 0;">
+                    Have questions about products or orders? Reach out to us via WhatsApp for quick assistance!
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info Cards -->
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-card-icon">💬</div>
+                        <h3>WhatsApp</h3>
+                        <p>Quick and easy way to place orders or ask questions</p>
+                        <a href="https://wa.me/919892030198" target="_blank" class="btn btn-whatsapp"
+                            style="margin-top: var(--space-md);">
+                            Chat on WhatsApp
+                        </a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-card-icon">📱</div>
+                        <h3>Phone Number</h3>
+                        <p
+                            style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-top: var(--space-sm);">
+                            +91 98920 30198
+                        </p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-card-icon">⏰</div>
+                        <h3>Working Hours</h3>
+                        <p>
+                            <strong>Monday - Saturday:</strong> 9:00 AM - 9:00 PM<br>
+                            <strong>Sunday:</strong> 10:00 AM - 6:00 PM
+                        </p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-card-icon">📍</div>
+                        <h3>Location</h3>
+                        <p>Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3 style="margin-bottom: var(--space-lg);">Send us a Message</h3>
+                    <form id="contactForm" onsubmit="handleContactForm(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="How can we help you?"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <span>📤</span>
+                            Send via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: var(--space-xl);">Frequently Asked Questions</h2>
+
+            <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-md);">
+                <div class="contact-card">
+                    <h3>How do I place an order?</h3>
+                    <p>Simply browse our products, add items to your cart, and click "Checkout via WhatsApp". Your order
+                        will be sent directly to us on WhatsApp!</p>
+                </div>
+
+                <div class="contact-card">
+                    <h3>How do payments work?</h3>
+                    <p>After you send your order via WhatsApp, our shopper will prepare your bill. Payment details will
+                        be shared separately - no online payment required on this website!</p>
+                </div>
+
+                <div class="contact-card">
+                    <h3>What areas do you deliver to?</h3>
+                    <p>We currently serve Mumbai and surrounding areas. Contact us on WhatsApp to check if we deliver to
+                        your location.</p>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Can I modify my order after placing it?</h3>
+                    <p>Yes! Just message us on WhatsApp before we prepare your order and we'll be happy to make changes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🏠</span>
+                        <span class="text-gradient">Home Needs</span>
+                    </div>
+                    <p>Your trusted partner for daily essentials. Quality products, easy WhatsApp ordering, and
+                        hassle-free shopping experience.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Shop</a></li>
+                        <li><a href="special-offers.html">Special Offers</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Pantry Staples</a></li>
+                        <li><a href="#">Cooking Oils</a></li>
+                        <li><a href="#">Spices</a></li>
+                        <li><a href="#">Beverages</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📱 WhatsApp: +91 98920 30198</li>
+                        <li>📍 Mumbai, India</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Home Needs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button (Mobile) -->
+    <button class="floating-cart" type="button">
+        🛒
+        <span class="cart-count" style="display: none;">0</span>
+    </button>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay"></div>
+
+    <!-- Cart Sidebar -->
+    <aside class="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Your Cart</h2>
+            <button class="close-cart" type="button">×</button>
+        </div>
+
+        <div class="cart-items">
+            <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="cart-summary-row total">
+                    <span>Total Items</span>
+                    <span class="total-items">0 items</span>
+                </div>
+            </div>
+            <button class="checkout-btn" type="button" disabled>
+                <span>💬</span>
+                Checkout via WhatsApp
+            </button>
+            <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: var(--space-sm);">
+                Payment handled by shopper after order confirmation
+            </p>
+        </div>
+    </aside>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Home Needs - Your one-stop shop for groceries, household items, and daily essentials. Order via WhatsApp!">
+  <title>Home Needs - Grocery & Essentials Store</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-page="home">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🏠</span>
+        <span class="text-gradient">Home Needs</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Shop</a>
+        <a href="special-offers.html" class="nav-link">Special Offers</a>
+        <a href="contact-us.html" class="nav-link">Contact Us</a>
+
+        <button class="cart-btn" type="button">
+          <span class="cart-icon">🛒</span>
+          <span>Cart</span>
+          <span class="cart-count" style="display: none;">0</span>
+        </button>
+      </div>
+
+      <button class="mobile-menu-btn" type="button" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-items">
+      <span class="floating-item" style="top: 10%; left: 5%;">🌾</span>
+      <span class="floating-item" style="top: 20%; right: 10%; animation-delay: -5s;">🥛</span>
+      <span class="floating-item" style="top: 60%; left: 8%; animation-delay: -10s;">🍵</span>
+      <span class="floating-item" style="top: 70%; right: 5%; animation-delay: -15s;">🧴</span>
+      <span class="floating-item" style="top: 40%; left: 15%; animation-delay: -8s;">🫘</span>
+    </div>
+
+    <div class="container hero-content">
+      <h1>Your Daily <span class="text-gradient">Essentials</span> Delivered</h1>
+      <p class="hero-subtitle">
+        Shop 100+ grocery items, household products, and daily needs.
+        Checkout via WhatsApp – no payment hassle!
+      </p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary btn-lg">
+          🛒 Start Shopping
+        </a>
+        <a href="special-offers.html" class="btn btn-secondary btn-lg">
+          🔥 View Offers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="category-section">
+    <div class="container">
+      <div class="category-filters">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Grid -->
+  <section id="products" class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>All Products</h2>
+      </div>
+      <div class="products-grid stagger-animation">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <span class="logo-icon">🏠</span>
+            <span class="text-gradient">Home Needs</span>
+          </div>
+          <p>Your trusted partner for daily essentials. Quality products, easy WhatsApp ordering, and hassle-free
+            shopping experience.</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Shop</a></li>
+            <li><a href="special-offers.html">Special Offers</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#">Pantry Staples</a></li>
+            <li><a href="#">Cooking Oils</a></li>
+            <li><a href="#">Spices</a></li>
+            <li><a href="#">Beverages</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li>📱 WhatsApp: +91 98920 30198</li>
+            <li>📍 Mumbai, India</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Home Needs. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Cart Button (Mobile) -->
+  <button class="floating-cart" type="button">
+    🛒
+    <span class="cart-count" style="display: none;">0</span>
+  </button>
+
+  <!-- Cart Overlay -->
+  <div class="cart-overlay"></div>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h2>🛒 Your Cart</h2>
+      <button class="close-cart" type="button">×</button>
+    </div>
+
+    <div class="cart-items">
+      <!-- Populated by JavaScript -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <div class="cart-summary-row total">
+          <span>Total Items</span>
+          <span class="total-items">0 items</span>
+        </div>
+      </div>
+      <button class="checkout-btn" type="button" disabled>
+        <span>💬</span>
+        Checkout via WhatsApp
+      </button>
+      <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: var(--space-sm);">
+        Payment handled by shopper after order confirmation
+      </p>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
