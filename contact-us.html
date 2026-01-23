@@ -18,38 +18,8 @@
 
 <body data-page="contact">
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html">
-                <div class="logo">
-                    <img src="assert/some-needs-logo.png" alt="Home Needs" class="logo-img">
-                </div>
-            </a>
-
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Shop</a>
-                <a href="special-offers.html" class="nav-link">Special Offers</a>
-                <a href="contact-us.html" class="nav-link active">Contact Us</a>
-
-                <button class="theme-toggle" aria-label="Toggle Dark Mode">
-                    <span class="theme-icon">🌙</span>
-                </button>
-
-                <button class="cart-btn" type="button">
-                    <span class="cart-icon">🛒</span>
-                    <span>Cart</span>
-                    <span class="cart-count" style="display: none;">0</span>
-                </button>
-            </div>
-
-            <button class="mobile-menu-btn" type="button" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <!-- Header Component -->
+    <div id="header-placeholder"></div>
 
     <!-- Contact Section -->
     <section class="contact-section">
@@ -162,91 +132,17 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <img src="assert/some-needs-logo.png" alt="Home Needs" class="logo-img">
-                    </div>
-                    <p>Your trusted partner for daily essentials. Quality products, easy WhatsApp ordering, and
-                        hassle-free shopping experience.</p>
-                </div>
+    <!-- Footer Component -->
+    <div id="footer-placeholder"></div>
 
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Shop</a></li>
-                        <li><a href="special-offers.html">Special Offers</a></li>
-                        <li><a href="contact-us.html">Contact Us</a></li>
-                    </ul>
-                </div>
+    <!-- Floating Cart Component -->
+    <div id="floating-cart-placeholder"></div>
 
-                <div class="footer-links">
-                    <h4>Categories</h4>
-                    <ul>
-                        <li><a href="#">Pantry Staples</a></li>
-                        <li><a href="#">Cooking Oils</a></li>
-                        <li><a href="#">Spices</a></li>
-                        <li><a href="#">Beverages</a></li>
-                    </ul>
-                </div>
+    <!-- Cart Sidebar Component -->
+    <div id="cart-placeholder"></div>
 
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li>📱 WhatsApp: +91 73049 20465</li>
-                        <li>📍 Mumbai, India</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 Home Needs. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating Cart Button (Mobile) -->
-    <button class="floating-cart" type="button">
-        <span class="cart-content">
-            🛒
-            <span class="cart-count" style="display: none;">0</span>
-        </span>
-        <span class="scroll-top-icon">⬆️</span>
-    </button>
-
-    <!-- Cart Overlay -->
-    <div class="cart-overlay"></div>
-
-    <!-- Cart Sidebar -->
-    <aside class="cart-sidebar">
-        <div class="cart-header">
-            <h2>🛒 Your Cart</h2>
-            <button class="close-cart" type="button">×</button>
-        </div>
-
-        <div class="cart-items">
-            <!-- Populated by JavaScript -->
-        </div>
-
-        <div class="cart-footer">
-            <div class="cart-summary">
-                <div class="cart-summary-row total">
-                    <span>Total Items</span>
-                    <span class="total-items">0 items</span>
-                </div>
-            </div>
-            <button class="checkout-btn" type="button" disabled>
-                <span>💬</span>
-                Checkout via WhatsApp
-            </button>
-            <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: var(--space-sm);">
-                Payment handled by shopper after order confirmation
-            </p>
-        </div>
-    </aside>
+    <!-- Checkout Modal Component -->
+    <div id="checkout-placeholder"></div>
 
     <!-- Scripts -->
     <script src="products.js"></script>

@@ -1,0 +1,26 @@
+<!-- Cart Sidebar Component -->
+<div class="cart-overlay" aria-hidden="true"></div>
+
+<aside class="cart-sidebar" role="dialog" aria-label="Shopping cart" aria-modal="true" aria-hidden="true">
+    <div class="cart-header">
+        <h2 id="cart-title">🛒 Your Cart</h2>
+        <button class="close-cart" type="button" aria-label="Close cart">×</button>
+    </div>
+
+    <div class="cart-items" role="list" aria-labelledby="cart-title">
+        <!-- Populated by JavaScript -->
+    </div>
+
+    <div class="cart-footer">
+        <div class="cart-summary">
+            <div class="cart-summary-row total">
+                <span>Total Items</span>
+                <span class="total-items" aria-live="polite">0 items</span>
+            </div>
+        </div>
+        <button class="checkout-btn" type="button" disabled aria-disabled="true">
+            <span aria-hidden="true">💬</span>
+            Proceed to Checkout
+        </button>
+    </div>
+</aside>

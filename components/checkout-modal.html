@@ -1,0 +1,57 @@
+<!-- Checkout Modal Component -->
+<div class="checkout-modal-overlay" aria-hidden="true"></div>
+<div class="checkout-modal" role="dialog" aria-labelledby="checkout-title" aria-modal="true" aria-hidden="true">
+    <div class="checkout-modal-header">
+        <h2 id="checkout-title">📋 Delivery Details</h2>
+        <button class="close-checkout-modal" type="button" aria-label="Close checkout form">×</button>
+    </div>
+
+    <div class="checkout-modal-body">
+        <div class="checkout-field">
+            <label for="checkout-name">Full Name <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="checkout-name" placeholder="Enter your full name" required aria-required="true">
+        </div>
+
+        <div class="checkout-field">
+            <label for="checkout-phone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+            <input type="tel" id="checkout-phone" placeholder="Enter your phone number" required aria-required="true">
+        </div>
+
+        <div class="checkout-field">
+            <label for="checkout-address">Delivery Address <span class="required" aria-hidden="true">*</span></label>
+            <textarea id="checkout-address" placeholder="Enter your full delivery address" rows="3" required
+                aria-required="true"></textarea>
+        </div>
+
+        <fieldset class="checkout-field">
+            <legend>Preferred Delivery Time <span class="required" aria-hidden="true">*</span></legend>
+            <div class="time-slot-options" role="radiogroup" aria-required="true">
+                <label class="time-slot-option">
+                    <input type="radio" name="timeslot" value="morning" required>
+                    <span class="time-slot-label">🌅 Morning<br><small>9 AM - 12 PM</small></span>
+                </label>
+                <label class="time-slot-option">
+                    <input type="radio" name="timeslot" value="afternoon">
+                    <span class="time-slot-label">☀️ Afternoon<br><small>12 PM - 4 PM</small></span>
+                </label>
+                <label class="time-slot-option">
+                    <input type="radio" name="timeslot" value="evening">
+                    <span class="time-slot-label">🌙 Evening<br><small>4 PM - 8 PM</small></span>
+                </label>
+            </div>
+        </fieldset>
+
+        <div class="checkout-field">
+            <label for="checkout-comment">Comments (optional)</label>
+            <textarea id="checkout-comment" placeholder="Any special instructions or notes..." rows="2"></textarea>
+        </div>
+    </div>
+
+    <div class="checkout-modal-footer">
+        <button class="confirm-checkout-btn" type="button">
+            <span aria-hidden="true">💬</span>
+            Send Order via WhatsApp
+        </button>
+        <p class="checkout-note">Payment handled by shopper after order confirmation</p>
+    </div>
+</div>

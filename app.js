@@ -12,12 +12,53 @@ let cart = [];
 // Current filter state
 let currentCategory = 'all';
 let currentProducts = PRODUCTS;
+let currentSearchQuery = '';
+let currentSortOrder = 'default';
+
+// ========================================
+// COMPONENT LOADER
+// ========================================
+async function loadComponent(elementId, componentPath) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    try {
+        const response = await fetch(componentPath);
+        if (!response.ok) throw new Error(`Failed to load ${componentPath}`);
+        const html = await response.text();
+        element.innerHTML = html;
+    } catch (error) {
+        console.error('Component load error:', error);
+    }
+}
+
+async function loadAllComponents() {
+    // Load all shared components
+    await Promise.all([
+        loadComponent('header-placeholder', 'components/header.html'),
+        loadComponent('footer-placeholder', 'components/footer.html'),
+        loadComponent('cart-placeholder', 'components/cart-sidebar.html'),
+        loadComponent('checkout-placeholder', 'components/checkout-modal.html'),
+        loadComponent('floating-cart-placeholder', 'components/floating-cart.html')
+    ]);
+
+    // Set active nav link based on current page
+    const page = document.body.dataset.page;
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.dataset.page === page) {
+            link.classList.add('active');
+        }
+    });
+}
 
 // Initialize app
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load shared components first
+    await loadAllComponents();
+
     loadCartFromStorage();
     initNavigation();
-    initTheme(); // Initialize Theme
+    initTheme();
     initCartSidebar();
 
     // Initialize page-specific features
@@ -25,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (page === 'home' || page === 'offers') {
         initProductGrid();
         initCategoryFilters();
+        initSearch();
         initScrollCategoryDetection();
     }
 
@@ -128,6 +170,191 @@ function initTheme() {
         setTimeout(() => {
             themeBtn.style.transform = '';
         }, 300);
+    });
+}
+
+// ========================================
+// SEARCH FUNCTIONALITY
+// ========================================
+function initSearch() {
+    const searchInput = document.getElementById('product-search');
+    const clearBtn = document.getElementById('search-clear');
+    if (!searchInput) return;
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+
+        // Show/hide clear button
+        clearBtn.style.display = query ? 'flex' : 'none';
+
+        // Debounce search
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            currentSearchQuery = query;
+            filterAndRenderProducts();
+        }, 200);
+    });
+
+    // Clear search
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        currentSearchQuery = '';
+        filterAndRenderProducts();
+        searchInput.focus();
+    });
+
+    // Sort dropdown
+    const sortDropdown = document.getElementById('product-sort');
+    if (sortDropdown) {
+        sortDropdown.addEventListener('change', (e) => {
+            currentSortOrder = e.target.value;
+            filterAndRenderProducts();
+        });
+    }
+}
+
+// Filter products based on search and category
+function filterAndRenderProducts() {
+    let filtered = currentProducts;
+
+    // Apply search filter
+    if (currentSearchQuery) {
+        filtered = filtered.filter(p =>
+            p.name.toLowerCase().includes(currentSearchQuery) ||
+            p.brand.toLowerCase().includes(currentSearchQuery) ||
+            p.category.toLowerCase().includes(currentSearchQuery)
+        );
+    }
+
+    // Apply category filter
+    if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category === currentCategory);
+    }
+
+    // Apply sorting
+    if (currentSortOrder === 'name-asc') {
+        filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (currentSortOrder === 'name-desc') {
+        filtered = [...filtered].sort((a, b) => b.name.localeCompare(a.name));
+    } else if (currentSortOrder === 'category') {
+        filtered = [...filtered].sort((a, b) => a.category.localeCompare(b.category));
+    }
+
+    renderFilteredProducts(filtered);
+}
+
+// Render filtered products (no grouping needed for search results)
+function renderFilteredProducts(products) {
+    const grid = document.querySelector('.products-grid');
+    if (!grid) return;
+
+    if (products.length === 0) {
+        grid.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">🔍</div>
+                <h3>No products found</h3>
+                <p>Try a different search term or category</p>
+            </div>
+        `;
+        return;
+    }
+
+    // If searching, show flat list; otherwise show grouped by category
+    if (currentSearchQuery || currentCategory !== 'all') {
+        grid.innerHTML = `<div class="category-products">${products.map(p => createProductCard(p)).join('')}</div>`;
+    } else {
+        // Group by category
+        const groupedHtml = [];
+        const categories = [...new Set(products.map(p => p.category))];
+        categories.forEach(cat => {
+            const categoryProducts = products.filter(p => p.category === cat);
+            groupedHtml.push(`
+                <div class="category-group" data-category="${cat}">
+                    <h3 class="category-group-title">${CATEGORY_ICONS[cat] || '📦'} ${cat}</h3>
+                    <div class="category-products">
+                        ${categoryProducts.map(product => createProductCard(product)).join('')}
+                    </div>
+                </div>
+            `);
+        });
+        grid.innerHTML = groupedHtml.join('');
+    }
+
+    // Re-attach event listeners
+    attachProductCardListeners();
+}
+
+// Attach event listeners to product cards
+function attachProductCardListeners() {
+    const grid = document.querySelector('.products-grid');
+    if (!grid) return;
+
+    grid.querySelectorAll('.product-card').forEach(card => {
+        const productId = card.dataset.productId;
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (!product) return;
+
+        // Weight/Size button pills
+        const sizeBtns = card.querySelectorAll('.size-btn');
+        let selectedSize = '';
+
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sizeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedSize = btn.dataset.size;
+                card.querySelector('.size-buttons').classList.remove('error');
+            });
+        });
+
+        // Quantity buttons
+        const minusBtn = card.querySelector('.qty-minus');
+        const plusBtn = card.querySelector('.qty-plus');
+        const qtyValue = card.querySelector('.qty-value');
+        let qty = 1;
+
+        minusBtn.addEventListener('click', () => {
+            if (qty > 1) {
+                qty--;
+                qtyValue.textContent = qty;
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            if (qty < 99) {
+                qty++;
+                qtyValue.textContent = qty;
+            }
+        });
+
+        // Add to cart button
+        const addBtn = card.querySelector('.add-to-cart-btn');
+        addBtn.addEventListener('click', () => {
+            if (!selectedSize) {
+                showToast('⚠️ Please select a weight/size first!', 'warning');
+                card.querySelector('.size-buttons').classList.add('error');
+                setTimeout(() => card.querySelector('.size-buttons').classList.remove('error'), 2000);
+                return;
+            }
+
+            if (qty < 1) {
+                showToast('⚠️ Please select quantity!', 'warning');
+                return;
+            }
+
+            addToCart(product, qty, selectedSize);
+
+            addBtn.classList.add('added');
+            addBtn.innerHTML = '✓ Added to Cart';
+
+            setTimeout(() => {
+                addBtn.classList.remove('added');
+                addBtn.innerHTML = '<span>🛒</span> Add to Cart';
+            }, 1500);
+        });
     });
 }
 
@@ -402,17 +629,9 @@ function initCategoryFilters() {
             filtersContainer.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
             pill.classList.add('active');
 
-            // Filter products
-            const category = pill.dataset.category;
-            currentCategory = category;
-            const page = document.body.dataset.page;
-            let products = PRODUCTS;
-
-            if (page === 'offers') {
-                products = PRODUCTS.filter(p => p.offer || p.popular);
-            }
-
-            renderProducts(products, category);
+            // Update category and re-filter
+            currentCategory = pill.dataset.category;
+            filterAndRenderProducts();
 
             // Scroll to products section
             const productsSection = document.querySelector('#products');
@@ -669,12 +888,26 @@ function handleWhatsAppCheckout() {
     const customerAddress = addressField.value.trim();
     const customerComment = commentField.value.trim();
 
+    // Get selected time slot
+    const selectedTimeSlot = document.querySelector('input[name="timeslot"]:checked');
+    if (!selectedTimeSlot) {
+        showToast('⚠️ Please select a delivery time slot!', 'warning');
+        return;
+    }
+    const timeSlotLabels = {
+        'morning': '🌅 Morning (9 AM - 12 PM)',
+        'afternoon': '☀️ Afternoon (12 PM - 4 PM)',
+        'evening': '🌙 Evening (4 PM - 8 PM)'
+    };
+    const timeSlotDisplay = timeSlotLabels[selectedTimeSlot.value] || selectedTimeSlot.value;
+
     // Format cart items for WhatsApp message
     let message = "🛒 *Home Needs Order*\n";
     message += "📋 *Customer Details*\n";
     message += `👤 Name: ${customerName}\n`;
     message += `📱 Phone: ${customerPhone}\n`;
     message += `📍 Address: ${customerAddress}\n`;
+    message += `⏰ Delivery: ${timeSlotDisplay}\n`;
     if (customerComment) {
         message += `💬 Note: ${customerComment}\n`;
     }
